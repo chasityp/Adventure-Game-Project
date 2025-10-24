@@ -152,3 +152,63 @@ print("\nTesting print_shop_menu()")
 print_shop_menu("Apple", 31, "Pear", 1.234)
 print_shop_menu("Egg", 0.23, "Bag of Oats", 12.34)
 print_shop_menu("Sword", 149.99, "Shield", 99.5)
+
+
+# Loop Game
+
+import random
+
+def sleep(hp, gold):
+    if gold >= 5:
+        hp = 30  # restore to full
+        gold -= 5
+        print("You slept and restored your HP!")
+    else:
+        print("Not enough gold to sleep.")
+    return hp, gold
+
+def fight_monster(player_hp, player_gold):
+    monster = new_random_monster()
+    monster_hp = monster["health"]
+    monster_damage = monster["power"]
+    player_damage = random.randint(3, 8)
+
+    print(f"\nA wild {monster['name']} appears!")
+    print(monster["description"])
+
+    while player_hp > 0 and monster_hp > 0:
+        print(f"\nYour HP: {player_hp}, {monster['name']} HP: {monster_hp}")
+        print("1) Attack")
+        print("2) Run Away")
+
+        action = input("> ")
+
+        if action == "1":
+            monster_hp -= player_damage
+            if monster_hp <= 0:
+                print(f"You defeated the {monster['name']}!")
+                player_gold += monster["money"]
+                break
+            player_hp -= monster_damage
+            print(f"The {monster['name']} hits you for {monster_damage} damage!")
+        elif action == "2":
+            print("You ran away!")
+            break
+        else:
+            print("Invalid action. Try again.")
+
+    if player_hp <= 0:
+        print("You passed out...")
+        player_hp = 30  # restore for next round maybe
+        player_gold = max(0, player_gold - 5)
+        print("You lost 5 gold while unconscious!")
+
+    return player_hp, player_gold
+
+def new_random_monster():
+    monsters = [
+        {"name": "Goblin", "description": "A sneaky little creature.", "health": 10, "power": 3, "money": 5},
+        {"name": "Orc", "description": "A big, green brute.", "health": 15, "power": 4, "money": 7},
+        {"name": "Slime", "description": "A squishy blob.", "health": 8, "power": 2, "money": 3}
+    ]
+    return random.choice(monsters)

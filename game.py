@@ -43,3 +43,41 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
+# Loop game
+
+import gamefunctions
+
+def main():
+    player_name = input("Enter your name: ")
+    player_hp = 30
+    player_gold = 10
+
+    print(f"\nWelcome, {player_name}! Let's begin your adventure!\n")
+
+    while True:
+        print("You are in town.")
+        print(f"Current HP: {player_hp}, Current Gold: {player_gold}")
+        print("\nWhat would you like to do?")
+        print("1) Leave town (Fight Monster)")
+        print("2) Sleep (Restore HP for 5 Gold)")
+        print("3) Quit")
+
+        choice = input("> ")
+
+        if choice == "1":
+            player_hp, player_gold = gamefunctions.fight_monster(player_hp, player_gold)
+        elif choice == "2":
+            player_hp, player_gold = gamefunctions.sleep(player_hp, player_gold)
+        elif choice == "3":
+            print("Goodbye, adventurer!")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+
